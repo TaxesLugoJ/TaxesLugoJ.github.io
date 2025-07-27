@@ -1,6 +1,7 @@
 # Blog de Impuestos, contabilidad y soluciones administrativas
 # Asistente Interactivo de Procesos de Compra
-Un panel de control interactivo de una sola página, diseñado para transformar un manual de compras y gastos tradicional en una herramienta de aprendizaje y consulta dinámica. Ideal para la incorporación de nuevos empleados y para la referencia continua del equipo en startups y pequeñas empresas...
+
+Un panel de control interactivo de una sola página, diseñado para transformar un manual de compras y gastos tradicional en una herramienta de aprendizaje y consulta dinámica. Ideal para la incorporación de nuevos empleados y para la referencia continua del equipo en startups y pequeñas empresas.
 
 Este proyecto nació de la necesidad de simplificar y modernizar la documentación interna de una startup. En lugar de un PDF estático y difícil de consultar, esta aplicación web convierte un denso manual de políticas en una experiencia interactiva y visualmente atractiva.
 
