@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente para creación de Manual o Proceso de Compras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Fresh Teal & Amber -->
+    <!-- Application Structure Plan: The SPA is an interactive "Implementation Assistant" dashboard, now using a tab-based navigation system for a more organized, app-like feel. The structure prioritizes task-based exploration: 1) Principles, 2) an 8-step interactive Workflow, 3) Roles, 4) Policies with a chart, 5) the role of the A3 Innuva tool, and 6) Best Practices. This tabbed structure prevents long scrolling and allows users to quickly access specific sections. -->
+    <!-- Visualization & Content Choices: 
+        - Principles (from user input): Goal: Inform. Method: A set of 6 descriptive cards with a new two-tone background design as requested. Justification: Enhances visual appeal and aligns with the user's provided design example.
+        - P2P Workflow (from user input): Goal: Organize/Inform. Method: An 8-step clickable flowchart diagram. Interaction: Clicking a step reveals details. Justification: Provides a clear, step-by-step visual guide to the process.
+        - Approval Policy (from source docs): Goal: Interact/Inform. Method: A dynamic bar chart. Justification: Visually represents the different tiers of approval, making the policy easier to understand.
+        - A3 Innuva Tool Section: Goal: Inform. Method: A dedicated section explaining the tool's role and automation benefits.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* light-blue-50 for a softer background */
+        }
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        .nav-button.active {
+            background-color: #0d9488; /* teal-600 */
+            color: white;
+            box-shadow: 0 4px S6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .step-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .step-card.active {
+            border-color: #0d9488; /* teal-600 */
+            box-shadow: 0 4px 14px 0 rgb(0 0 0 / 0.1);
+            transform: translateY(-2px);
+        }
+        .chart-container {
+            position: relative;
+            height: 320px;
+            width: 100%;
+            max-width: 450px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+        
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-slate-800">Asistente para creación de Manual o Proceso de Compras y Gastos</h1>
+            <p class="text-lg text-slate-600 mt-1">Guía para una Gestión Eficiente en Startups</p>
+        </header>
+
+        <nav class="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8" id="main-nav">
+            <button data-tab="principios" class="nav-button active text-sm sm:text-base font-medium py-2 px-4 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-slate-100">Principios</button>
+            <button data-tab="flujo" class="nav-button text-sm sm:text-base font-medium py-2 px-4 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-slate-100">Proceso</button>
+            <button data-tab="roles" class="nav-button text-sm sm:text-base font-medium py-2 px-4 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-slate-100">Roles</button>
+            <button data-tab="politica" class="nav-button text-sm sm:text-base font-medium py-2 px-4 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-slate-100">Política</button>
+            <button data-tab="herramienta" class="nav-button text-sm sm:text-base font-medium py-2 px-4 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-slate-100">Herramienta</button>
+            <button data-tab="reglas" class="nav-button text-sm sm:text-base font-medium py-2 px-4 rounded-lg bg-white shadow-sm border border-gray-200 hover:bg-slate-100">Reglas de Oro</button>
+        </nav>
+
+        <main id="content-container">
+            
+            <section id="principios" class="tab-content">
+                 <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">La Importancia de un Proceso Eficiente</h2>
+                    <p class="text-slate-600 mb-6">Un proceso de compras bien definido es un pilar fundamental para el éxito. Se basa en estos seis principios para optimizar costos, agilizar operaciones y mitigar riesgos.</p>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <div class="rounded-lg shadow border border-gray-200 overflow-hidden">
+                            <div class="bg-teal-50 p-6 flex justify-center items-center">
+                                <i data-lucide="target" class="h-12 w-12 text-teal-600"></i>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h3 class="text-xl font-semibold mb-2">Control de Costos</h3>
+                                <p class="text-slate-600 text-sm">Permite optimizar los gastos, evitar compras innecesarias y negociar mejores precios con los proveedores.</p>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg shadow border border-gray-200 overflow-hidden">
+                            <div class="bg-teal-50 p-6 flex justify-center items-center">
+                                <i data-lucide="zap" class="h-12 w-12 text-teal-600"></i>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h3 class="text-xl font-semibold mb-2">Eficiencia Operativa</h3>
+                                <p class="text-slate-600 text-sm">Facilita la gestión de la cadena de suministro, agiliza los procesos internos y evita retrasos.</p>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg shadow border border-gray-200 overflow-hidden">
+                            <div class="bg-teal-50 p-6 flex justify-center items-center">
+                                <i data-lucide="users" class="h-12 w-12 text-teal-600"></i>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h3 class="text-xl font-semibold mb-2">Gestión de Proveedores</h3>
+                                <p class="text-slate-600 text-sm">Contribuye a construir relaciones sólidas y duraderas con los proveedores, basadas en la confianza y transparencia.</p>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg shadow border border-gray-200 overflow-hidden">
+                            <div class="bg-teal-50 p-6 flex justify-center items-center">
+                                <i data-lucide="shield" class="h-12 w-12 text-teal-600"></i>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h3 class="text-xl font-semibold mb-2">Cumplimiento Normativo</h3>
+                                <p class="text-slate-600 text-sm">Asegura que las compras se realicen de acuerdo con las políticas de la empresa, evitando riesgos legales y financieros.</p>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg shadow border border-gray-200 overflow-hidden">
+                            <div class="bg-teal-50 p-6 flex justify-center items-center">
+                                <i data-lucide="search" class="h-12 w-12 text-teal-600"></i>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h3 class="text-xl font-semibold mb-2">Transparencia y Trazabilidad</h3>
+                                <p class="text-slate-600 text-sm">Permite un seguimiento claro de todas las transacciones, facilitando auditorías y la toma de decisiones.</p>
+                            </div>
+                        </div>
+
+                        <div class="rounded-lg shadow border border-gray-200 overflow-hidden">
+                            <div class="bg-teal-50 p-6 flex justify-center items-center">
+                                <i data-lucide="bar-chart-2" class="h-12 w-12 text-teal-600"></i>
+                            </div>
+                            <div class="p-6 bg-white">
+                                <h3 class="text-xl font-semibold mb-2">Análisis de Datos</h3>
+                                <p class="text-slate-600 text-sm">Transforma los datos de compras en inteligencia de negocio para identificar patrones y tomar decisiones estratégicas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="flujo" class="tab-content hidden">
+                 <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">El Flujograma del Proceso de Compra</h2>
+                    <p class="text-slate-600 mb-6">Todo gasto, desde una campaña de marketing hasta material de oficina, debe seguir este flujo estandarizado de 8 pasos. Haga clic en cada etapa para ver los detalles.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6" id="steps-container">
+                        <!-- Steps will be injected by JS -->
+                    </div>
+                    
+                    <div class="mt-6 bg-slate-50 p-6 rounded-lg border border-slate-200 min-h-[150px]" id="step-details">
+                         <p class="text-slate-500 text-center">Seleccione un paso para ver los detalles.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="roles" class="tab-content hidden">
+                 <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-4">Roles y Responsabilidades</h2>
+                    <p class="text-slate-600 mb-6">Para que el proceso funcione, cada uno debe conocer su papel. La claridad en las responsabilidades es fundamental para evitar cuellos de botella.</p>
+                    <div class="bg-white rounded-lg shadow-inner border border-gray-200 overflow-hidden">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-50">
+                                <tr>
+                                    <th class="p-4 font-semibold text-sm">Rol</th>
+                                    <th class="p-4 font-semibold text-sm">Quién es</th>
+                                    <th class="p-4 font-semibold text-sm">Responsabilidades Clave</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200">
+                                <!-- Roles will be injected by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="politica" class="tab-content hidden">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">Política de Compras y Aprobación</h2>
+                    <p class="text-slate-600 mb-6">Para equilibrar agilidad y control, las compras se clasifican por su valor. Esta matriz define el nivel de aprobación requerido para cada tipo de gasto.</p>
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <div class="lg:w-1/2">
+                            <div class="space-y-4">
+                                 <!-- Policies will be injected by JS -->
+                            </div>
+                            <div class="mt-6 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-lg">
+                                <h4 class="font-bold text-amber-800">Casos Especiales</h4>
+                                <ul class="list-disc list-inside text-amber-700 mt-2 space-y-1 text-sm">
+                                    <li><strong>Compra Directa (Proveedor Único):</strong> Si un proveedor es exclusivo, no se requieren múltiples ofertas, pero la solicitud debe justificarlo claramente.</li>
+                                    <li><strong>Hecho Cumplido:</strong> Realizar una compra sin aprobación previa está prohibido. No se reembolsarán y se considerará una violación de esta política.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 bg-slate-50 p-4 rounded-lg border border-gray-200">
+                             <div class="chart-container h-96 md:h-[450px]">
+                                <canvas id="policyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="herramienta" class="tab-content hidden">
+                 <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">El Rol de la Automatización y A3 Innuva</h2>
+                    <p class="text-slate-600 mb-6">La automatización es clave para la eficiencia. Nuestro software, A3 Innuva Contabilidad, es fundamental en la fase final de registro y control.</p>
+                    <div class="bg-slate-50 p-8 rounded-lg border border-gray-200">
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/3 text-center mb-6 md:mb-0">
+                                <i data-lucide="bot" class="h-24 w-24 text-teal-600 mx-auto"></i>
+                                <h3 class="text-2xl font-bold mt-4">Automatización con A3 Innuva</h3>
+                                <p class="text-slate-500">Nuestro Sistema Central de Registro</p>
+                            </div>
+                            <div class="md:w-2/3 md:pl-8">
+                                <h4 class="text-xl font-semibold mb-4">¿Cómo nos ayuda la automatización?</h4>
+                                <p class="text-slate-600 mb-6 text-sm">Mientras que las solicitudes y aprobaciones iniciales son ágiles, A3 Innuva automatiza la parte más crítica del proceso, ayudando a:</p>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="h-6 w-6 text-green-500 mr-3 flex-shrink-0 mt-1"></i>
+                                        <div class="text-sm"><strong class="text-slate-800">Agilizar la Gestión:</strong> Permite la creación automatizada de asientos contables a partir de facturas, la aprobación electrónica y el registro para un pago ordenado.</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="h-6 w-6 text-green-500 mr-3 flex-shrink-0 mt-1"></i>
+                                        <div class="text-sm"><strong class="text-slate-800">Reducir Errores y Retrasos:</strong> Elimina la necesidad de procesos manuales de entrada de datos, minimizando errores humanos y agilizando la gestión de la información.</div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="h-6 w-6 text-green-500 mr-3 flex-shrink-0 mt-1"></i>
+                                        <div class="text-sm"><strong class="text-slate-800">Obtener Visibilidad y Control:</strong> Permite el seguimiento en tiempo real de los gastos registrados, el análisis de datos y la identificación de áreas de mejora.</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="reglas" class="tab-content hidden">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-2xl font-bold text-slate-700 mb-2">Buenas Prácticas y Reglas de Oro</h2>
+                    <p class="text-slate-600 mb-6">Para asegurar que el proceso funcione sin problemas, todos deben seguir estas sencillas reglas.</p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-slate-50 p-6 rounded-lg border border-gray-200">
+                            <h3 class="font-semibold text-lg mb-2">No Fraccionar Compras</h3>
+                            <p class="text-slate-600 text-sm">Está prohibido dividir una compra grande en varias pequeñas para evitar un nivel de aprobación superior. Esto va en contra del principio de transparencia.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-lg border border-gray-200">
+                            <h3 class="font-semibold text-lg mb-2">Centralizar Facturas</h3>
+                            <p class="text-slate-600 text-sm">Todas las facturas, sin excepción, deben enviarse a <strong class="text-teal-600">facturas@tuempresa.com</strong>. No las guardes en tu bandeja de entrada personal.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-lg border border-gray-200">
+                            <h3 class="font-semibold text-lg mb-2">Planificar con Antelación</h3>
+                            <p class="text-slate-600 text-sm">Las compras urgentes suelen ser más caras y conllevan más riesgo. Planifica las necesidades de tu departamento siempre que sea posible para obtener mejores condiciones.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-lg border border-gray-200">
+                            <h3 class="font-semibold text-lg mb-2">Conflictos de Interés</h3>
+                            <p class="text-slate-600 text-sm">Si tienes una relación personal o familiar con un proveedor, debes declararlo inmediatamente al Gestor Administrativo y abstenerte de participar en la decisión.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const appData = {
+        processSteps: [
+            { title: 'Identificación de la Necesidad', description: 'Un empleado detecta una necesidad de bienes o servicios para su área.' },
+            { title: 'Solicitud de Compra', description: 'Se crea una solicitud formal, especificando los artículos, cantidades y proveedores preferidos.' },
+            { title: 'Búsqueda y Evaluación de Proveedores', description: 'Se investigan y evalúan diferentes proveedores, comparando precios, calidad, condiciones y tiempos de entrega.' },
+            { title: 'Generación de la Orden de Compra', description: 'Se crea una orden de compra formal (si aplica según el monto), detallando los términos acordados con el proveedor.' },
+            { title: 'Recepción de Bienes o Servicios', description: 'Se verifica que la entrega coincida con lo solicitado y se cotejan los documentos de entrega (albaranes).' },
+            { title: 'Recepción y Aprobación de Factura', description: 'Se recibe la factura del proveedor y se verifica su exactitud antes de ser aprobada para el pago.' },
+            { title: 'Pago al Proveedor', description: 'Finanzas realiza el pago según los términos acordados y se envia a contabilidad para ser registrado en A3 Innuva.' },
+            { title: 'Gestión de la Información', description: 'Se archivan y registran todos los documentos relacionados con la compra para futuras referencias y auditorías. Importante: hacer etiquetado correcto de las facturas recibidas --> NOMBRE_FECHA_NRO-FACTURA. Ejemplo: AMAZON_20250728_1452640.pdf' }
+        ],
+        roles: [
+            { name: 'Solicitante', who: 'Jefes de Departamento', responsibilities: '- Identificar y justificar las necesidades de compra.<br>- Buscar proveedores y obtener cotizaciones.<br>- Iniciar la solicitud de compra.<br>- Confirmar la recepción del bien o servicio.' },
+            { name: 'Aprobador', who: 'Finanzas / Dirección', responsibilities: '- Revisar que la solicitud cumpla la política y el presupuesto.<br>- Aprobar o rechazar las solicitudes según los umbrales definidos.' },
+            { name: 'Gestor', who: 'Gestor Administrativo', responsibilities: '- Supervisar el cumplimiento del proceso.<br>- Ser el punto de contacto para dudas.<br>- Gestionar la relación con proveedores clave.' },
+            { name: 'Contabilidad', who: 'Finanzas', responsibilities: '- Recibir y verificar las facturas finales.<br>- Registrar las facturas en <strong>A3 Innuva Contabilidad</strong>.<br>- Programar y ejecutar los pagos.' }
+        ],
+        policies: [
+            { type: 'Compra Menor', value: 'Hasta 250 €', process: 'No requiere aprobación previa. El Jefe de Dpto. puede realizarla directamente. Es obligatorio presentar el recibo o factura para su justificación.' },
+            { type: 'Compra Estándar', value: '251 € - 2.000 €', process: 'Requiere aprobación por email del Representante de Finanzas. Se debe presentar al menos 1 cotización.' },
+            { type: 'Compra Mayor', value: 'Más de 2.000 €', process: 'Requiere aprobación por email de Dirección. Se recomienda presentar 2-3 cotizaciones para asegurar el mejor valor.' }
+        ],
+    };
+
+    lucide.createIcons();
+
+    const mainNav = document.getElementById('main-nav');
+    const contentContainer = document.getElementById('content-container');
+    const tabs = contentContainer.querySelectorAll('.tab-content');
+    let activeStepElement = null;
+
+    mainNav.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            const tabId = e.target.dataset.tab;
+            
+            mainNav.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+            e.target.classList.add('active');
+
+            tabs.forEach(tab => {
+                tab.id === tabId ? tab.classList.remove('hidden') : tab.classList.add('hidden');
+            });
+            if (tabId === 'politica') {
+                initPolicyChart();
+            }
+        }
+    });
+
+    function initProcessFlow() {
+        const stepsContainer = document.getElementById('steps-container');
+        const stepDetailsContainer = document.getElementById('step-details');
+        stepsContainer.innerHTML = '';
+
+        appData.processSteps.forEach((step, index) => {
+            const stepEl = document.createElement('div');
+            stepEl.className = 'step-card bg-white p-4 rounded-lg shadow-sm border-2 border-transparent hover:border-teal-300 flex flex-col items-center justify-center text-center w-full h-32';
+            stepEl.dataset.stepIndex = index;
+            stepEl.innerHTML = `
+                <div class="bg-teal-100 text-teal-600 rounded-full h-10 w-10 flex-shrink-0 flex items-center justify-center font-bold text-lg mb-2">${index + 1}</div>
+                <h4 class="font-semibold text-sm">${step.title}</h4>
+            `;
+            stepsContainer.appendChild(stepEl);
+        });
+
+        stepsContainer.addEventListener('click', (e) => {
+            const card = e.target.closest('.step-card');
+            if (card) {
+                const stepIndex = parseInt(card.dataset.stepIndex);
+                const stepData = appData.processSteps[stepIndex];
+
+                if (activeStepElement) {
+                    activeStepElement.classList.remove('active');
+                }
+                card.classList.add('active');
+                activeStepElement = card;
+
+                if (stepData) {
+                    stepDetailsContainer.innerHTML = `
+                        <h3 class="text-xl font-bold text-slate-700 mb-2">${stepData.title}</h3>
+                        <p class="text-slate-600">${stepData.description}</p>
+                    `;
+                }
+            }
+        });
+    }
+
+    function initRoles() {
+        const rolesTbody = document.querySelector('#roles table tbody');
+        rolesTbody.innerHTML = '';
+        appData.roles.forEach(role => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="p-4 font-bold text-sm">${role.name}</td>
+                <td class="p-4 text-sm">${role.who}</td>
+                <td class="p-4 text-slate-600 text-sm">${role.responsibilities}</td>
+            `;
+            rolesTbody.appendChild(row);
+        });
+    }
+
+    function initPolicies() {
+        const policiesContainer = document.querySelector('#politica .space-y-4');
+        policiesContainer.innerHTML = '';
+        appData.policies.forEach(policy => {
+            const policyEl = document.createElement('div');
+            policyEl.className = 'bg-white p-5 rounded-lg shadow border border-gray-200';
+            policyEl.innerHTML = `
+                <h3 class="font-bold text-lg">${policy.type}</h3>
+                <p class="text-teal-600 font-semibold">${policy.value}</p>
+                <p class="text-slate-600 mt-2 text-sm">${policy.process}</p>
+            `;
+            policiesContainer.appendChild(policyEl);
+        });
+    }
+    
+    let policyChartInstance = null;
+    function initPolicyChart() {
+        const ctx = document.getElementById('policyChart').getContext('2d');
+        if (policyChartInstance) {
+            policyChartInstance.destroy();
+        }
+        policyChartInstance = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Compra Menor', 'Compra Estándar', 'Compra Mayor'],
+                datasets: [{
+                    label: 'Límite Superior de Gasto (€)',
+                    data: [250, 2000, 5000],
+                    backgroundColor: ['rgba(45, 212, 191, 0.7)', 'rgba(20, 184, 166, 0.7)', 'rgba(13, 148, 136, 0.7)'],
+                    borderColor: ['rgba(45, 212, 191, 1)', 'rgba(20, 184, 166, 1)', 'rgba(13, 148, 136, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: { y: { beginAtZero: true, ticks: { callback: value => '€' + value } } },
+                plugins: {
+                    legend: { display: false },
+                    title: { display: true, text: 'Visualización de Umbrales de Aprobación' },
+                    tooltip: {
+                        callbacks: {
+                            label: context => `Hasta €${context.parsed.y}`
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Initializations
+    initProcessFlow();
+    initRoles();
+    initPolicies();
+});
+</script>
+</body>
+</html>
